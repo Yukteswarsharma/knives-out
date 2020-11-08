@@ -48,7 +48,7 @@ function setup() {
   ninja = createSprite(200,375,0.05,0.05);
 
   yesButton = createButton("Yes");
-  yesButton.position(400,350);
+  yesButton.position(displayWidth-500,displayHeight-50);
   yesButton.hide();
 
   startButton = createButton("Start");
@@ -59,6 +59,8 @@ function setup() {
   resetButton.position(100,50);
   resetButton.hide();
 
+ 
+
   gameOver = createSprite(400,120,20,20);
   gameOver.addImage(gameOverImg);
   gameOver.visible = false;
@@ -67,15 +69,15 @@ function setup() {
   power.scale = 0.6;
   power.visible = false;
 
-  image1 = createSprite(250,200,50,50);
+  image1 = createSprite(displayWidth-500,displayHeight-500,50,50);
   image1.addImage(ninjaImg);
   image1.scale = 0.1;
 
-  image2 = createSprite(400,200,50,50);
+  image2 = createSprite(displayWidth-500,displayHeight-300,50,50);
   image2.addImage(star3);
   image2.scale = 0.3;
 
-  image3 = createSprite(550,200,50,50);
+  image3 = createSprite(displayWidth-500,displayHeight-200,50,50);
   image3.addImage(star4);
   image3.scale = 0.14;
 
@@ -115,11 +117,11 @@ function draw() {
 if(gameState === "form"){
   yesButton.show();
   textSize(25);
-  text("Rules: ",350,170);
-  text("The goal of this game is to slice the fruit",160,200);
-  text("To slice the fruit, press the space bar",160,230);
-  text("Beware of the falling bombs!",160,260);
-  text("Are you ready to become the next fruit ninja?",160,290);
+  text("Rules: ",displayWidth-500,displayHeight-500);
+  text("The goal of this game is to slice the fruit",displayWidth-500,displayHeight-400);
+  text("To slice the fruit, press the space bar",displayWidth-500,displayHeight-300);
+  text("Beware of the falling bombs!",displayWidth-500,displayHeight-200);
+  text("Are you ready to become the next fruit ninja?",displayWidth-500,displayHeight-100);
   yesButton.mousePressed(()=>{
     gameState = "options";
     yesButton.hide();
@@ -154,14 +156,14 @@ if(gameState === "options"){
   })
 }
 
+
+
  if(gameState === "play"){
   power.visible = false; 
   gameOver.visible = false;
   textSize(20);
   text("Score: "+ score,630,60);
-  if(score>0 && score%150===0){
-    gameState="powerPlay";
-  }
+
     spawnApples();
     spawnStraws();
     spawnMelons();
@@ -204,7 +206,7 @@ if(gameState === "options"){
   }
 
   fruitCut(); 
- }
+}
 
  if(gameState === "end"){
   power.visible = false;
@@ -214,7 +216,7 @@ if(gameState === "options"){
   }else{
     resetButton.show();
   }
- 
+  
   
   AppleGroup.destroyEach();
   PeachGroup.destroyEach();
@@ -247,12 +249,13 @@ if(gameState === "options"){
   }
 }
 
+
   drawSprites();
 }
 
 function spawnApples(){
   if(frameCount %25 === 0){
-    var apple = createSprite(random(0,800),random(-80,0),20,20);
+    var apple = createSprite(random(0,displayWidth),random(displayHeight,0),20,20);
     apple.addImage(appleImg);
     apple.velocityY = 8 + 3*(frameCount/500);
     apple.scale = 0.6;
@@ -261,7 +264,7 @@ function spawnApples(){
 }
 function spawnStraws(){
   if(frameCount %25 === 0){
-    var straw = createSprite(random(0,800),random(-80,0),20,20);
+    var straw = createSprite(random(0,displayWidth),random(displayHeight,0),20,20);
     straw.addImage(strawImg);
     straw.velocityY = 8 + 3*(frameCount/1000);
     straw.scale = 0.6;
@@ -270,7 +273,7 @@ function spawnStraws(){
 }
 function spawnMelons(){
   if(frameCount %25 === 0){
-    var melon = createSprite(random(0,800),random(-80,0),20,20);
+    var melon = createSprite(random(0,displayWidth),random(displayHeight,0),20,20);
     melon.addImage(melonImg);
     melon.velocityY = 8 + 3*(frameCount/1000);
     melon.scale = 0.6;
@@ -279,7 +282,7 @@ function spawnMelons(){
 }
 function spawnPeaches(){
   if(frameCount %25 === 0){
-    var peach = createSprite(random(0,800),random(-80,0),20,20);
+    var peach = createSprite(random(0,displayWidth),random(displayHeight,0),20,20);
     peach.addImage(peachImg);
     peach.velocityY = 8 + 3*(frameCount/1000);
     peach.scale = 0.6;
@@ -288,7 +291,7 @@ function spawnPeaches(){
 }
 function spawnBooms(){
   if(frameCount %60 === 0){
-    var boom = createSprite(random(0,800),random(-80,0),20,20);
+    var boom = createSprite(random(0,displayWidth),random(displayHeight,0),20,20);
     boom.addImage(boomImg);
     boom.velocityY = 8 + 3*(frameCount/1000);
     boom.rotationSpeed = random(-0.5,0.5);
@@ -298,7 +301,7 @@ function spawnBooms(){
   }
 }
 function createStar(){
-  var star = createSprite(mouseX,380,20,20);
+  var star = createSprite(mouseX,380,displayWidth,displayHeight);
   star.velocityY = -7;
   star.rotationSpeed = 20;
   star.addImage(ninjaImg);
